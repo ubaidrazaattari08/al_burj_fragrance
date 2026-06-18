@@ -1,0 +1,262 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Alburj Fragrance — Midnight Oud design system.
+ * All tokens defined here. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-plum: var(--plum);
+  --color-ink: var(--ink);
+
+  --shadow-glow: 0 0 60px -10px color-mix(in oklab, var(--gold) 40%, transparent);
+  --shadow-elevated: 0 30px 80px -30px oklch(0 0 0 / 0.8);
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Midnight Oud palette */
+  --ink: oklch(0.13 0.012 290);          /* #0f0d14 deep black */
+  --plum: oklch(0.25 0.03 320);          /* #2a1f2e dark plum surface */
+  --gold: oklch(0.78 0.135 86);          /* #d4af37 antique gold */
+  --gold-soft: oklch(0.86 0.09 88);
+
+  --background: var(--ink);
+  --foreground: oklch(0.97 0.005 90);
+
+  --card: oklch(0.18 0.022 305);
+  --card-foreground: oklch(0.97 0.005 90);
+  --popover: oklch(0.18 0.022 305);
+  --popover-foreground: oklch(0.97 0.005 90);
+
+  --primary: var(--gold);
+  --primary-foreground: var(--ink);
+
+  --secondary: var(--plum);
+  --secondary-foreground: oklch(0.97 0.005 90);
+
+  --muted: oklch(0.2 0.018 300);
+  --muted-foreground: oklch(0.7 0.012 90);
+
+  --accent: var(--plum);
+  --accent-foreground: var(--gold);
+
+  --destructive: oklch(0.6 0.22 22);
+  --destructive-foreground: oklch(0.98 0.005 90);
+
+  --border: oklch(0.3 0.025 315 / 60%);
+  --input: oklch(0.3 0.025 315 / 60%);
+  --ring: var(--gold);
+
+  --chart-1: var(--gold);
+  --chart-2: oklch(0.6 0.14 320);
+  --chart-3: oklch(0.5 0.1 280);
+  --chart-4: oklch(0.7 0.12 60);
+  --chart-5: oklch(0.4 0.08 340);
+
+  --sidebar: var(--plum);
+  --sidebar-foreground: oklch(0.97 0.005 90);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--ink);
+  --sidebar-accent: oklch(0.22 0.025 310);
+  --sidebar-accent-foreground: var(--gold);
+  --sidebar-border: oklch(0.3 0.025 315 / 60%);
+  --sidebar-ring: var(--gold);
+}
+
+.dark {
+  --background: var(--ink);
+  --foreground: oklch(0.97 0.005 90);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-weight: 700; /* single bold body text for better readability */
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(at 12% 0%, color-mix(in oklab, var(--plum) 55%, transparent) 0, transparent 55%),
+      radial-gradient(at 92% 100%, color-mix(in oklab, var(--gold) 8%, transparent) 0, transparent 50%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 700; /* single bold headings */
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: var(--gold);
+    color: var(--ink);
+  }
+}
+
+@utility container-luxe {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  max-width: 80rem;
+  @media (min-width: 768px) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility text-eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+@utility heading-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+@utility gold-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklab, var(--gold) 70%, transparent),
+    transparent
+  );
+}
+
+@utility gold-gradient-text {
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold) 50%, color-mix(in oklab, var(--gold) 60%, #fff 0%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 900; /* double bold for the ALBURJ brand name */
+}
+
+@utility btn-luxe {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--ink);
+  border: 1px solid var(--gold);
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+@utility btn-luxe-hover {
+  &:hover {
+    background: transparent;
+    color: var(--gold);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@utility btn-ghost-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid color-mix(in oklab, var(--gold) 55%, transparent);
+  transition: all 0.35s ease;
+  cursor: pointer;
+  &:hover {
+    border-color: var(--gold);
+    background: color-mix(in oklab, var(--gold) 8%, transparent);
+  }
+}
+
+@utility card-luxe {
+  background: color-mix(in oklab, var(--plum) 55%, transparent);
+  border: 1px solid color-mix(in oklab, var(--gold) 14%, transparent);
+  backdrop-filter: blur(8px);
+  transition: all 0.4s ease;
+  &:hover {
+    border-color: color-mix(in oklab, var(--gold) 45%, transparent);
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@utility animate-shimmer {
+  animation: shimmer 6s linear infinite;
+}
+
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility animate-float-up {
+  animation: float-up 0.9s ease forwards;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@utility animate-drift {
+  animation: drift 7s ease-in-out infinite;
+}
