@@ -40,18 +40,14 @@ function AuthPage() {
         const { data, error } = await supabase.auth.signInWithPassword({ email: e1.data, password: p1.data });
         if (error) throw error;
         toast.success("Welcome back.");
-        // Check if user is admin — redirect accordingly
+        // Check admin role on client side after login
         const { data: role } = await supabase
           .from("user_roles")
           .select("role")
           .eq("user_id", data.user.id)
           .eq("role", "admin")
           .maybeSingle();
-        if (role) {
-          navigate({ to: "/admin" });
-        } else {
-          navigate({ to: "/account" });
-        }
+        navigate({ to: role ? "/admin" : "/account" });
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Authentication failed");
