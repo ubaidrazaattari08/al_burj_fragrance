@@ -35,12 +35,24 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("Account created — you're signed in.");
+        navigate({ to: "/account" });
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email: e1.data, password: p1.data });
+        const { data, error } = await supabase.auth.signInWithPassword({ email: e1.data, password: p1.data });
         if (error) throw error;
         toast.success("Welcome back.");
+        // Check if user is admin — redirect accordingly
+        const { data: role } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", data.user.id)
+          .eq("role", "admin")
+          .maybeSingle();
+        if (role) {
+          navigate({ to: "/admin" });
+        } else {
+          navigate({ to: "/account" });
+        }
       }
-      navigate({ to: "/account" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Authentication failed");
     } finally { setLoading(false); }
